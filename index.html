@@ -28,42 +28,39 @@
         /* A4 Page Simulation for Screen Preview */
         .a4-page {
             width: 210mm;
-            min-height: 297mm;
+            height: 297mm; /* Changed from min-height to fixed height for 1:1 preview */
             padding: 12mm 15mm;
             background: white;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             margin: 0 auto;
             position: relative;
             box-sizing: border-box;
+            overflow: hidden; /* Prevent screen layout from stretching beyond A4 */
         }
         /* Certificate Border - Increased bottom padding to 85px to push signatures up on screen */
         .rapor-border {
             border: 4px double #475569;
             outline: 1px solid #475569;
             outline-offset: -8px;
-            padding: 22px 24px 85px 24px;
+            padding: 22px 24px 20px 24px; /* Reduced bottom padding */
             height: 100%;
-            min-height: calc(297mm - 24mm - 20px);
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            row-gap: 12px;
+            justify-content: space-between; /* Ensures content stretches nicely to bottom */
         }
         /* Print Styles - Perfect A4 1-Page Layout without browser interference */
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 0mm !important;
+                margin: 0 !important; /* Crucial: browser margins to zero */
             }
             html, body {
-                height: 100%;
-                max-height: 297mm;
-                overflow: hidden !important;
-            }
-            body {
-                background: white !important;
+                width: 210mm;
+                height: 297mm;
+                overflow: hidden !important; /* Strict protection against second page generation */
                 margin: 0 !important;
                 padding: 0 !important;
+                background: white !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
@@ -73,14 +70,12 @@
             .print-area {
                 width: 210mm !important;
                 height: 297mm !important;
-                min-height: 297mm !important;
-                max-height: 297mm !important;
-                padding: 10mm 15mm 10mm 15mm !important;
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding: 10mm 15mm !important; /* Physical margins on paper */
                 box-shadow: none !important;
                 margin: 0 !important;
-                page-break-inside: avoid !important;
-                page-break-after: avoid !important;
-                break-after: avoid !important;
                 box-sizing: border-box !important;
                 display: block !important;
                 background: white !important;
@@ -89,14 +84,11 @@
                 border: 4px double #475569 !important;
                 outline: 1px solid #475569 !important;
                 outline-offset: -6px !important;
-                padding: 18px 22px 85px 22px !important;
-                min-height: 277mm !important;
-                height: 277mm !important;
-                max-height: 277mm !important;
+                padding: 15px 20px 15px 20px !important; /* Maximize internal space */
+                height: 277mm !important; /* Exact inner height (297 - 20) */
                 display: flex !important;
                 flex-direction: column !important;
-                justify-content: flex-start !important;
-                row-gap: 6px !important;
+                justify-content: space-between !important; /* Pushes signature to the absolute bottom */
                 box-sizing: border-box !important;
             }
         }
@@ -255,9 +247,9 @@
                 className: "العاشر الألف (10-A)", // Kelas X-A
                 semester: "الثاني / Genap",
                 academicYear: "٢٠٢٥ - ٢٠٢٦ مـ",
-                homeroomTeacher: "الأستاذ محمد أزكي مولا شكور، لسانس",
+                homeroomTeacher: "كياهي الحاج أحمد بيهقي",
                 homeroomTeacherNip: "Wali Kelas X-A",
-                headmaster: "الأستاذ عبد الحليم",
+                headmaster: "الأستاذ الحاج شهراني",
                 headmasterNip: "Kepala SMA MBS",
                 placeDateGreg: "تنجرانج، ١٩ يونيو ٢٠٢٦ مـ",
                 placeDateHijr: "٤ محرم ١٤٤٨ هـ",
@@ -923,29 +915,29 @@
                                         <div class="rapor-border print:p-1.5">
                                             
                                             {/* Rapor Header */}
-                                            <div class="print:mb-1 pt-[0.5cm] print:pt-[0.5cm]">
-                                                <div class="flex justify-between items-center border-b-2 border-slate-400 pb-3 mb-6 print:pb-2 print:mb-4" dir="rtl">
+                                            <div class="print:mb-0 pt-2 print:pt-1">
+                                                <div class="flex justify-between items-center border-b-2 border-slate-400 pb-3 mb-4 print:pb-1.5 print:mb-2.5" dir="rtl">
                                                     <div class="text-right w-1/3 pr-8 print:pr-4 animate-fade-in">
                                                         <img 
                                                             src="https://iili.io/FsLlXA7.png" 
                                                             alt="Logo Pesantren" 
-                                                            class="h-16 w-auto object-contain inline-block print:h-12"
+                                                            class="h-16 w-auto object-contain inline-block print:h-11"
                                                             onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/100x100?text=MBS+Logo"; }}
                                                         />
                                                     </div>
 
                                                     <div class="text-center w-1/3">
                                                         <div class="arabic-header text-slate-900 font-black text-2xl tracking-wide leading-none print:text-xl">كشف الدرجات</div>
-                                                        <div class="arabic-text text-sm text-slate-700 font-bold mt-1.5 leading-tight print:text-xs print:mt-1">{schoolConfig.mahadName}</div>
+                                                        <div class="arabic-text text-sm text-slate-700 font-bold mt-1.5 leading-tight print:text-[11px] print:mt-1">{schoolConfig.mahadName}</div>
                                                     </div>
 
                                                     <div class="text-left w-1/3 font-sans" dir="ltr">
-                                                        <div class="font-bold text-[11px] md:text-xs text-slate-800 uppercase tracking-wider leading-tight print:text-[9.5px]">Laporan Hasil Belajar (Rapor)</div>
-                                                        <div class="text-[9px] md:text-[10px] text-slate-500 font-semibold tracking-wide mt-0.5 whitespace-nowrap print:text-[8px]">SMA Malika Islamic Boarding School</div>
+                                                        <div class="font-bold text-[11px] md:text-xs text-slate-800 uppercase tracking-wider leading-tight print:text-[9px]">Laporan Hasil Belajar (Rapor)</div>
+                                                        <div class="text-[9px] md:text-[10px] text-slate-500 font-semibold tracking-wide mt-0.5 whitespace-nowrap print:text-[7.5px]">SMA Malika Islamic Boarding School</div>
                                                     </div>
                                                 </div>
 
-                                                <div class="border border-slate-400 rounded-lg p-2 mb-3 bg-slate-50/70 arabic-text text-xs print:p-1.5 print:mb-2 print:text-[10px]" dir="rtl">
+                                                <div class="border border-slate-400 rounded-lg p-2 mb-3 bg-slate-50/70 arabic-text text-xs print:p-1 print:mb-1.5 print:text-[9px]" dir="rtl">
                                                     <div class="grid grid-cols-4 gap-2 text-right items-center">
                                                         <div class="border-l border-slate-300 pl-2">
                                                             <span class="font-bold text-slate-700">الاسم : </span>
@@ -1081,7 +1073,7 @@
                                             </div>
 
                                             {/* Bottom Block */}
-                                            <div class="mt-2 grid grid-cols-1 print:grid-cols-3 md:grid-cols-3 gap-3 text-[11px] print:mt-1.5 print:gap-2 print:text-[9px]" dir="rtl">
+                                            <div class="mt-2 grid grid-cols-1 print:grid-cols-3 md:grid-cols-3 gap-3 text-[11px] print:mt-1 print:gap-2 print:text-[8px]" dir="rtl">
                                                 
                                                 <div class="flex flex-col h-full">
                                                     <div class="arabic-header text-right font-bold text-slate-700 mb-1 border-r-4 border-slate-400 pr-1.5 print:pr-1">أيام الغياب / Absensi</div>
@@ -1141,7 +1133,7 @@
                                                                         <td class="border border-slate-300 p-1.5 px-2 text-right font-bold text-slate-700 bg-slate-50 print:p-0.5">المعدل / Rata-rata</td>
                                                                         <td class="border border-slate-300 p-1.5 text-center font-normal text-slate-800 font-sans bg-slate-50 print:p-0.5">{formatNum(stats.average)}</td>
                                                                     </tr>
-                                                                    <tr class="h-[23px] print:h-[18px]">
+                                                                    <tr class="h-[23px] print:h-[16px]">
                                                                         <td class="border border-slate-300 p-1.5 px-2 text-right font-bold text-slate-700 bg-slate-50/10 print:p-0.5">&nbsp;</td>
                                                                         <td class="border border-slate-300 p-1.5 text-center font-normal text-slate-800 font-sans bg-slate-50/10 print:p-0.5">&nbsp;</td>
                                                                     </tr>
@@ -1154,32 +1146,32 @@
                                             </div>
 
                                             {/* Signature Block */}
-                                            <div class="mt-auto border-t border-slate-300 pt-6 mb-[1cm] print:mt-auto print:pt-6 print:mb-[1.5cm]" dir="rtl">
-                                                <div class="text-right text-[10px] text-slate-600 italic mb-3 arabic-text print:text-[8.5px] print:mb-2">
+                                            <div class="mt-auto border-t border-slate-300 pt-4 mb-2 print:mt-auto print:pt-3 print:mb-0" dir="rtl">
+                                                <div class="text-right text-[10px] text-slate-600 italic mb-3 arabic-text print:text-[8px] print:mb-1.5">
                                                     تحريرا في: {schoolConfig.placeDateGreg} / {schoolConfig.placeDateHijr}
                                                 </div>
                                                 <div class="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-800 leading-tight print:text-[8.5px]">
                                                     {/* Headmaster Signature SMA */}
                                                     <div>
-                                                        <div class="arabic-header font-semibold text-slate-800">رئيس المدرسة العالية / Kepala SMA</div>
-                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider mb-16 print:mb-14">Headmaster</div>
-                                                        <div class="font-bold border-b border-slate-800 w-44 mx-auto pb-1 text-emerald-950 font-sans print:w-36">{schoolConfig.headmaster}</div>
+                                                        <div class="arabic-header font-semibold text-slate-800 print:text-[9px]">رئيس المدرسة العالية / Kepala SMA</div>
+                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider mb-14 print:mb-10 print:text-[7.5px]">Headmaster</div>
+                                                        <div class="font-bold border-b border-slate-800 w-44 mx-auto pb-1 text-emerald-950 font-sans print:w-36 print:pb-0.5">{schoolConfig.headmaster}</div>
                                                         <div class="text-[9px] text-slate-500 mt-0.5 print:text-[7.5px]">{schoolConfig.headmasterNip}</div>
                                                     </div>
 
                                                     {/* Homeroom Teacher */}
                                                     <div>
-                                                        <div class="arabic-header font-semibold text-slate-800">ولي الفصل / Wali Kelas</div>
-                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider mb-16 print:mb-14">Homeroom Teacher</div>
-                                                        <div class="font-bold border-b border-slate-800 w-44 mx-auto pb-1 text-emerald-950 font-sans print:w-36">{schoolConfig.homeroomTeacher}</div>
+                                                        <div class="arabic-header font-semibold text-slate-800 print:text-[9px]">ولي الفصل / Wali Kelas</div>
+                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider mb-14 print:mb-10 print:text-[7.5px]">Homeroom Teacher</div>
+                                                        <div class="font-bold border-b border-slate-800 w-44 mx-auto pb-1 text-emerald-950 font-sans print:w-36 print:pb-0.5">{schoolConfig.homeroomTeacher}</div>
                                                         <div class="text-[9px] text-slate-500 mt-0.5 print:text-[7.5px]">{schoolConfig.homeroomTeacherNip}</div>
                                                     </div>
 
                                                     {/* Parent / Guardian Signature */}
                                                     <div>
-                                                        <div class="arabic-header font-semibold text-slate-800">ولي الأمر / Orang Tua</div>
-                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider mb-16 print:mb-14">Wali Santri</div>
-                                                        <div class="font-bold border-b border-dashed border-slate-400 w-32 mx-auto pb-1 print:w-28">........................................</div>
+                                                        <div class="arabic-header font-semibold text-slate-800 print:text-[9px]">ولي الأمر / Orang Tua</div>
+                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider mb-14 print:mb-10 print:text-[7.5px]">Wali Santri</div>
+                                                        <div class="font-bold border-b border-dashed border-slate-400 w-32 mx-auto pb-1 print:w-28 print:pb-0.5">........................................</div>
                                                     </div>
                                                 </div>
                                             </div>
