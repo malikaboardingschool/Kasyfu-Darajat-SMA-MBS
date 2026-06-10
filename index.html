@@ -269,13 +269,13 @@
         function App() {
             const [schoolConfig, setSchoolConfig] = useState({
                 mahadName: "معهد التربية الإسلامية ماليك",
-                className: "العاشر الألف (10-A)", 
-                semester: "الثاني / Genap",
+                className: "العاشر الألف", 
+                semester: "الثاني",
                 academicYear: "٢٠٢٥ - ٢٠٢٦ مـ",
                 homeroomTeacher: "كياهي الحاج أحمد بيهقي",
-                homeroomTeacherNip: "Wali Kelas X-A",
+                homeroomTeacherNip: "",
                 headmaster: "الأستاذ الحاج شهراني",
-                headmasterNip: "Kepala SMA MBS",
+                headmasterNip: "",
                 placeDateGreg: "تنجرانج، ١٩ يونيو ٢٠٢٦ مـ",
                 placeDateHijr: "٤ محرم ١٤٤٨ هـ",
                 useEasternArabicDigits: true
@@ -455,7 +455,7 @@
                         </div>
                         <div class="text-center w-1/3">
                             <div class="arabic-header text-slate-900 font-black text-2xl leading-none print:text-xl" style={{ letterSpacing: 'normal' }}>كشف الدرجات</div>
-                            <div class="arabic-text text-sm text-slate-700 font-bold mt-1.5 leading-tight print:text-[11px] print:mt-1">{schoolConfig.mahadName}</div>
+                            <div class="arabic-text text-sm text-slate-770 font-bold mt-1.5 leading-tight print:text-[11px] print:mt-1">{schoolConfig.mahadName}</div>
                             {/* Tahun Ajaran dipindah ke bawah nama Ma'had dengan Flexbox pelindung titik dua dan garis miring */}
                             <div class="arabic-text text-xs text-slate-600 mt-1 print:text-[9px] print:mt-0.5 flex justify-center items-center gap-1" dir="rtl">
                                 <span>العام الدراسي</span>
