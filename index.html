@@ -454,7 +454,8 @@
                             />
                         </div>
                         <div class="text-center w-1/3">
-                            <div class="arabic-header text-slate-900 font-black text-2xl tracking-wide leading-none print:text-xl">كشف الدرجات</div>
+                            {/* CLASS tracking-wide DIHAPUS agar huruf Arab tersambung sempurna di PDF */}
+                            <div class="arabic-header text-slate-900 font-black text-2xl leading-none print:text-xl" style={{ letterSpacing: 'normal' }}>كشف الدرجات</div>
                             <div class="arabic-text text-sm text-slate-700 font-bold mt-1.5 leading-tight print:text-[11px] print:mt-1">{schoolConfig.mahadName}</div>
                         </div>
                         <div class="text-left w-1/3 font-sans" dir="ltr">
@@ -637,10 +638,11 @@
                                     
                                     {/* HALAMAN 1: Lisan & Tulis */}
                                     <div class="a4-page shadow-2xl relative" dir="rtl">
-                                        <div class="rapor-border">
+                                        <div class="rapor-border flex flex-col">
                                             <HeaderKop />
                                             
-                                            <div class="grid grid-cols-2 gap-5 text-[11px] print:text-[10px] h-full" dir="rtl">
+                                            {/* mt-8 print:mt-10 ditambahkan untuk memberi jarak renggang antara biodata dan tabel nilai */}
+                                            <div class="grid grid-cols-2 gap-5 text-[11px] print:text-[10px] flex-grow mt-8 print:mt-10" dir="rtl">
                                                 
                                                 {/* Kolom Kanan: Ujian Tulis */}
                                                 <div class="flex flex-col">
@@ -651,11 +653,11 @@
                                                     <table class="w-full border-collapse border border-slate-300 text-right print:text-[9.5px]">
                                                         <thead>
                                                             <tr class="bg-slate-100 text-slate-800 font-bold arabic-header text-[10px] print:text-[9px]">
-                                                                <th class="border border-slate-300 py-1.5 px-1.5 text-center w-8 print:py-1">رقم</th>
-                                                                <th class="border border-slate-300 py-1.5 px-2 text-right print:py-1">المواد الدراسية / Pelajaran</th>
-                                                                <th class="border border-slate-300 py-1.5 px-1 text-center w-12 print:py-1">النتيجة</th>
-                                                                <th class="border border-slate-300 py-1.5 px-1 text-center w-10 print:py-1">التقدير</th>
-                                                                <th class="border border-slate-300 py-1.5 px-2 text-right print:py-1">الكتابة / Terbilang</th>
+                                                                <th class="border border-slate-300 py-1 px-1.5 text-center w-8 print:py-0.5">رقم</th>
+                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">المواد الدراسية / Pelajaran</th>
+                                                                <th class="border border-slate-300 py-1 px-1 text-center w-12 print:py-0.5">النتيجة</th>
+                                                                <th class="border border-slate-300 py-1 px-1 text-center w-10 print:py-0.5">التقدير</th>
+                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">الكتابة / Terbilang</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -663,13 +665,13 @@
                                                                 const score = currentStudent.grades[sub.id] || 0;
                                                                 return (
                                                                     <tr key={sub.id} class="hover:bg-slate-50">
-                                                                        <td class="border border-slate-300 py-1 px-1 text-center text-slate-500 font-sans print:py-0.5">{formatNum(idx + 1)}</td>
-                                                                        <td class="border border-slate-300 py-1 px-2 text-right arabic-text font-semibold print:py-0.5">
+                                                                        <td class="border border-slate-300 py-[3px] px-1 text-center text-slate-500 font-sans print:py-[1.5px]">{formatNum(idx + 1)}</td>
+                                                                        <td class="border border-slate-300 py-[3px] px-2 text-right arabic-text font-semibold print:py-[1.5px]">
                                                                             {sub.nameAr} <span class="block text-[8px] text-slate-400 font-sans mt-0.5">{sub.nameId}</span>
                                                                         </td>
-                                                                        <td class="border border-slate-300 py-1 px-1 text-center font-normal font-sans print:py-0.5">{formatNum(score)}</td>
-                                                                        <td class="border border-slate-300 py-1 px-1 text-center font-normal font-sans print:py-0.5">{score}</td>
-                                                                        <td class="border border-slate-300 py-1 px-2 text-right arabic-text text-[10px] text-slate-600 print:text-[9px] print:py-0.5">{numberToArabicWords(score)}</td>
+                                                                        <td class="border border-slate-300 py-[3px] px-1 text-center font-normal font-sans print:py-[1.5px]">{formatNum(score)}</td>
+                                                                        <td class="border border-slate-300 py-[3px] px-1 text-center font-normal font-sans print:py-[1.5px]">{score}</td>
+                                                                        <td class="border border-slate-300 py-[3px] px-2 text-right arabic-text text-[10px] text-slate-600 print:text-[9px] print:py-[1.5px]">{numberToArabicWords(score)}</td>
                                                                     </tr>
                                                                 );
                                                             })}
@@ -686,11 +688,11 @@
                                                     <table class="w-full border-collapse border border-slate-300 text-right print:text-[9.5px]">
                                                         <thead>
                                                             <tr class="bg-slate-100 text-slate-800 font-bold arabic-header text-[10px] print:text-[9px]">
-                                                                <th class="border border-slate-300 py-1.5 px-1.5 text-center w-8 print:py-1">رقم</th>
-                                                                <th class="border border-slate-300 py-1.5 px-2 text-right print:py-1">المواد الدراسية / Pelajaran</th>
-                                                                <th class="border border-slate-300 py-1.5 px-1 text-center w-12 print:py-1">النتيجة</th>
-                                                                <th class="border border-slate-300 py-1.5 px-1 text-center w-10 print:py-1">التقدير</th>
-                                                                <th class="border border-slate-300 py-1.5 px-2 text-right print:py-1">الكتابة / Terbilang</th>
+                                                                <th class="border border-slate-300 py-1 px-1.5 text-center w-8 print:py-0.5">رقم</th>
+                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">المواد الدراسية / Pelajaran</th>
+                                                                <th class="border border-slate-300 py-1 px-1 text-center w-12 print:py-0.5">النتيجة</th>
+                                                                <th class="border border-slate-300 py-1 px-1 text-center w-10 print:py-0.5">التقدير</th>
+                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">الكتابة / Terbilang</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -698,13 +700,13 @@
                                                                 const score = currentStudent.grades[sub.id] || 0;
                                                                 return (
                                                                     <tr key={sub.id} class="hover:bg-slate-50">
-                                                                        <td class="border border-slate-300 py-1 px-1 text-center text-slate-500 font-sans print:py-0.5">{formatNum(idx + 1)}</td>
-                                                                        <td class="border border-slate-300 py-1 px-2 text-right arabic-text font-semibold print:py-0.5">
+                                                                        <td class="border border-slate-300 py-[3px] px-1 text-center text-slate-500 font-sans print:py-[1.5px]">{formatNum(idx + 1)}</td>
+                                                                        <td class="border border-slate-300 py-[3px] px-2 text-right arabic-text font-semibold print:py-[1.5px]">
                                                                             {sub.nameAr} <span class="block text-[8px] text-slate-400 font-sans mt-0.5">{sub.nameId}</span>
                                                                         </td>
-                                                                        <td class="border border-slate-300 py-1 px-1 text-center font-normal font-sans print:py-0.5">{formatNum(score)}</td>
-                                                                        <td class="border border-slate-300 py-1 px-1 text-center font-normal font-sans print:py-0.5">{score}</td>
-                                                                        <td class="border border-slate-300 py-1 px-2 text-right arabic-text text-[10px] text-slate-600 print:text-[9px] print:py-0.5">{numberToArabicWords(score)}</td>
+                                                                        <td class="border border-slate-300 py-[3px] px-1 text-center font-normal font-sans print:py-[1.5px]">{formatNum(score)}</td>
+                                                                        <td class="border border-slate-300 py-[3px] px-1 text-center font-normal font-sans print:py-[1.5px]">{score}</td>
+                                                                        <td class="border border-slate-300 py-[3px] px-2 text-right arabic-text text-[10px] text-slate-600 print:text-[9px] print:py-[1.5px]">{numberToArabicWords(score)}</td>
                                                                     </tr>
                                                                 );
                                                             })}
@@ -735,11 +737,11 @@
                                                 <table class="w-full border-collapse border border-slate-300 text-right print:text-[10px]">
                                                     <thead>
                                                         <tr class="bg-slate-100 text-slate-800 font-bold arabic-header text-[11px] print:text-[9.5px]">
-                                                            <th class="border border-slate-300 py-2 px-2 text-center w-10 print:py-0.5">رقم</th>
-                                                            <th class="border border-slate-300 py-2 px-3 text-right print:py-0.5">المواد الدراسية / Pelajaran</th>
-                                                            <th class="border border-slate-300 py-2 px-2 text-center w-20 print:py-0.5">النتيجة</th>
-                                                            <th class="border border-slate-300 py-2 px-2 text-center w-16 print:py-0.5">التقدير</th>
-                                                            <th class="border border-slate-300 py-2 px-3 text-right w-1/3 print:py-0.5">الكتابة / Terbilang</th>
+                                                            <th class="border border-slate-300 py-1 px-2 text-center w-10 print:py-[2px]">رقم</th>
+                                                            <th class="border border-slate-300 py-1 px-3 text-right print:py-[2px]">المواد الدراسية / Pelajaran</th>
+                                                            <th class="border border-slate-300 py-1 px-2 text-center w-20 print:py-[2px]">النتيجة</th>
+                                                            <th class="border border-slate-300 py-1 px-2 text-center w-16 print:py-[2px]">التقدير</th>
+                                                            <th class="border border-slate-300 py-1 px-3 text-right w-1/3 print:py-[2px]">الكتابة / Terbilang</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -747,13 +749,13 @@
                                                             const score = currentStudent.grades[sub.id] || 0;
                                                             return (
                                                                 <tr key={sub.id} class="hover:bg-slate-50">
-                                                                    <td class="border border-slate-300 py-1.5 px-2 text-center text-slate-500 font-sans print:py-0.5">{formatNum(idx + 1)}</td>
-                                                                    <td class="border border-slate-300 py-1.5 px-3 text-right arabic-text font-bold text-sm print:text-xs print:py-0.5">
+                                                                    <td class="border border-slate-300 py-[4px] px-2 text-center text-slate-500 font-sans print:py-[2px]">{formatNum(idx + 1)}</td>
+                                                                    <td class="border border-slate-300 py-[4px] px-3 text-right arabic-text font-bold text-sm print:text-xs print:py-[2px]">
                                                                         {sub.nameAr} <span class="inline-block mx-2 text-[9px] text-slate-400 font-sans font-normal print:text-[8px]">| {sub.nameId}</span>
                                                                     </td>
-                                                                    <td class="border border-slate-300 py-1.5 px-2 text-center font-bold font-sans text-sm print:text-xs print:py-0.5">{formatNum(score)}</td>
-                                                                    <td class="border border-slate-300 py-1.5 px-2 text-center font-bold font-sans text-sm print:text-xs print:py-0.5">{score}</td>
-                                                                    <td class="border border-slate-300 py-1.5 px-3 text-right arabic-text text-xs text-slate-700 print:text-[10px] print:py-0.5">{numberToArabicWords(score)}</td>
+                                                                    <td class="border border-slate-300 py-[4px] px-2 text-center font-bold font-sans text-sm print:text-xs print:py-[2px]">{formatNum(score)}</td>
+                                                                    <td class="border border-slate-300 py-[4px] px-2 text-center font-bold font-sans text-sm print:text-xs print:py-[2px]">{score}</td>
+                                                                    <td class="border border-slate-300 py-[4px] px-3 text-right arabic-text text-xs text-slate-700 print:text-[10px] print:py-[2px]">{numberToArabicWords(score)}</td>
                                                                 </tr>
                                                             );
                                                         })}
@@ -769,19 +771,19 @@
                                                     <table class="w-full flex-grow border-collapse border border-slate-300 text-right">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="border border-slate-300 p-1.5 px-2 font-medium print:p-1">المرض / Sakit</td>
-                                                                <td class="border border-slate-300 p-1.5 text-center text-slate-800 w-16 font-sans print:p-1">{formatNum(currentStudent.attendance.sakit)}</td>
-                                                                <td class="border border-slate-300 p-1.5 text-center w-12 arabic-text print:p-1">يوما</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">المرض / Sakit</td>
+                                                                <td class="border border-slate-300 py-1 text-center text-slate-800 w-16 font-sans print:py-[2px]">{formatNum(currentStudent.attendance.sakit)}</td>
+                                                                <td class="border border-slate-300 py-1 text-center w-12 arabic-text print:py-[2px]">يوما</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="border border-slate-300 p-1.5 px-2 font-medium print:p-1">الاستئذان / Izin</td>
-                                                                <td class="border border-slate-300 p-1.5 text-center text-slate-800 w-16 font-sans print:p-1">{formatNum(currentStudent.attendance.izin)}</td>
-                                                                <td class="border border-slate-300 p-1.5 text-center w-12 arabic-text print:p-1">يوما</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">الاستئذان / Izin</td>
+                                                                <td class="border border-slate-300 py-1 text-center text-slate-800 w-16 font-sans print:py-[2px]">{formatNum(currentStudent.attendance.izin)}</td>
+                                                                <td class="border border-slate-300 py-1 text-center w-12 arabic-text print:py-[2px]">يوما</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="border border-slate-300 p-1.5 px-2 font-medium print:p-1">الغياب / Alpa</td>
-                                                                <td class="border border-slate-300 p-1.5 text-center text-slate-800 w-16 font-sans print:p-1">{formatNum(currentStudent.attendance.alpa)}</td>
-                                                                <td class="border border-slate-300 p-1.5 text-center w-12 arabic-text print:p-1">يوما</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">الغياب / Alpa</td>
+                                                                <td class="border border-slate-300 py-1 text-center text-slate-800 w-16 font-sans print:py-[2px]">{formatNum(currentStudent.attendance.alpa)}</td>
+                                                                <td class="border border-slate-300 py-1 text-center w-12 arabic-text print:py-[2px]">يوما</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -793,16 +795,16 @@
                                                     <table class="w-full flex-grow border-collapse border border-slate-300 text-right">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="border border-slate-300 p-1.5 px-2 font-medium print:p-1">السلوك / Karakter & Akhlaq</td>
-                                                                <td class="border border-slate-300 p-1.5 text-center font-bold text-slate-800 arabic-text print:p-1">{currentStudent.behavior.suluk}</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">السلوك / Karakter & Akhlaq</td>
+                                                                <td class="border border-slate-300 py-1 text-center font-bold text-slate-800 arabic-text print:py-[2px]">{currentStudent.behavior.suluk}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="border border-slate-300 p-1.5 px-2 font-medium print:p-1">النظافة / Kebersihan</td>
-                                                                <td class="border border-slate-300 p-1.5 text-center font-bold text-slate-800 arabic-text print:p-1">{currentStudent.behavior.nazhafah}</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">النظافة / Kebersihan</td>
+                                                                <td class="border border-slate-300 py-1 text-center font-bold text-slate-800 arabic-text print:py-[2px]">{currentStudent.behavior.nazhafah}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="border border-slate-300 p-1.5 px-2 font-medium print:p-1">المواظبة / Kedisiplinan</td>
-                                                                <td class="border border-slate-300 p-1.5 text-center font-bold text-slate-800 arabic-text print:p-1">{currentStudent.behavior.muraqabah}</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">المواظبة / Kedisiplinan</td>
+                                                                <td class="border border-slate-300 py-1 text-center font-bold text-slate-800 arabic-text print:py-[2px]">{currentStudent.behavior.muraqabah}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -817,12 +819,12 @@
                                                             <table class="w-full flex-grow border-collapse border border-slate-300 text-right">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td class="border border-slate-300 p-2 px-2 font-bold text-slate-700 bg-slate-50 print:p-1.5">مجموع الدرجات / Total Nilai</td>
-                                                                        <td class="border border-slate-300 p-2 text-center font-bold text-slate-900 font-sans bg-slate-50 text-sm print:text-xs print:p-1.5">{formatNum(stats.total)}</td>
+                                                                        <td class="border border-slate-300 py-1.5 px-2 font-bold text-slate-700 bg-slate-50 print:py-[3px]">مجموع الدرجات / Total Nilai</td>
+                                                                        <td class="border border-slate-300 py-1.5 text-center font-bold text-slate-900 font-sans bg-slate-50 text-sm print:text-xs print:py-[3px]">{formatNum(stats.total)}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="border border-slate-300 p-2 px-2 font-bold text-slate-700 bg-slate-50 print:p-1.5">المعدل / Rata-rata</td>
-                                                                        <td class="border border-slate-300 p-2 text-center font-bold text-slate-900 font-sans bg-slate-50 text-sm print:text-xs print:p-1.5">{formatNum(stats.average)}</td>
+                                                                        <td class="border border-slate-300 py-1.5 px-2 font-bold text-slate-700 bg-slate-50 print:py-[3px]">المعدل / Rata-rata</td>
+                                                                        <td class="border border-slate-300 py-1.5 text-center font-bold text-slate-900 font-sans bg-slate-50 text-sm print:text-xs print:py-[3px]">{formatNum(stats.average)}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
