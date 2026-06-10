@@ -54,16 +54,31 @@
         }
 
         /* Mode Khusus PDF Generator */
+        body.rendering-pdf {
+            overflow: visible !important;
+            height: auto !important;
+        }
         .pdf-mode {
             gap: 0 !important;
             padding: 0 !important;
+            margin: 0 auto !important;
             background: white !important;
+            width: 210mm !important;
         }
         .pdf-mode .a4-page {
+            width: 210mm !important;
+            height: 296.5mm !important; /* Sedikit dikurangi untuk mencegah kebocoran sub-pixel */
             box-shadow: none !important;
             margin: 0 !important;
-            page-break-after: always;
+            padding: 10mm 15mm !important;
+            page-break-after: always !important;
+            page-break-inside: avoid !important;
             border-radius: 0 !important;
+            transform: none !important;
+        }
+        .pdf-mode .rapor-border {
+            height: 276.5mm !important;
+            padding: 15px 18px !important;
         }
 
         /* 100% Perfect Print Layout */
@@ -378,11 +393,19 @@
             const downloadPDF = () => {
                 if (!currentStudent) return;
                 
-                triggerToast("Sedang membuat PDF, mohon tunggu beberapa saat...", "success");
+                triggerToast("Sedang menyiapkan dokumen PDF...", "success");
                 
                 const element = document.getElementById('pdf-content');
-                // Tambahkan kelas mode pdf untuk menghilangkan gap (celah antar halaman) saat di render canvas
+                // Simpan class asli container parent agar bisa dikembalikan (mengatasi bug html2canvas terpotong scroll)
+                const scrollContainer = element.parentElement;
+                const originalClasses = scrollContainer.className;
+                
+                // Buang class pembatas tinggi sementara waktu untuk merender full canvas
+                scrollContainer.className = "lg:col-span-8 flex flex-col items-center print-container p-0";
+                
+                // Tambahkan kelas mode pdf
                 element.classList.add('pdf-mode');
+                document.body.classList.add('rendering-pdf');
 
                 // Hilangkan spasi nama untuk penamaan file
                 const safeName = currentStudent.nameLatin.replace(/[^a-z0-9]/gi, '_').toLowerCase();
@@ -392,18 +415,27 @@
                 const opt = {
                     margin:       0,
                     filename:     fileName,
-                    image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, windowWidth: 800 },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                    pagebreak:    { mode: 'css' }
+                    image:        { type: 'jpeg', quality: 1 },
+                    html2canvas:  { 
+                        scale: 2, 
+                        useCORS: true, 
+                        scrollY: 0,
+                        scrollX: 0,
+                        windowWidth: document.documentElement.offsetWidth
+                    },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
                 // Generate PDF
                 html2pdf().set(opt).from(element).save().then(() => {
                     element.classList.remove('pdf-mode');
+                    document.body.classList.remove('rendering-pdf');
+                    scrollContainer.className = originalClasses; // Kembalikan tampilan UI ke bentuk semula
                     triggerToast("PDF berhasil diunduh!", "success");
                 }).catch(err => {
                     element.classList.remove('pdf-mode');
+                    document.body.classList.remove('rendering-pdf');
+                    scrollContainer.className = originalClasses; // Kembalikan tampilan UI ke bentuk semula
                     triggerToast("Gagal membuat PDF", "error");
                     console.error(err);
                 });
