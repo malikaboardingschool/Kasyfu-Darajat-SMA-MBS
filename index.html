@@ -454,10 +454,9 @@
                             />
                         </div>
                         <div class="text-center w-1/3">
-                            {/* Menghapus class tracking-wide agar huruf Arab menyambung sempurna di PDF */}
                             <div class="arabic-header text-slate-900 font-black text-2xl leading-none print:text-xl" style={{ letterSpacing: 'normal' }}>كشف الدرجات</div>
                             <div class="arabic-text text-sm text-slate-700 font-bold mt-1.5 leading-tight print:text-[11px] print:mt-1">{schoolConfig.mahadName}</div>
-                            {/* Tahun Ajaran dipindah ke bawah nama Ma'had dengan Flexbox pelindung titik dua */}
+                            {/* Tahun Ajaran dipindah ke bawah nama Ma'had dengan Flexbox pelindung titik dua dan garis miring */}
                             <div class="arabic-text text-xs text-slate-600 mt-1 print:text-[9px] print:mt-0.5 flex justify-center items-center gap-1" dir="rtl">
                                 <span>العام الدراسي</span>
                                 <span>:</span>
@@ -470,7 +469,7 @@
                         </div>
                     </div>
                     
-                    {/* Menggunakan layout Flexbox tersendiri untuk mengamankan posisi tanda titik dua (:) dari bug browser RTL */}
+                    {/* Menggunakan layout Flexbox tersendiri untuk mengamankan posisi tanda titik dua (:) dan garis miring (/) dari bug browser RTL */}
                     <div class="border border-slate-400 rounded-lg p-1.5 mb-2 bg-slate-50/70 arabic-text text-xs print:p-1 print:mb-1.5 print:text-[9px]" dir="rtl">
                         <div class="grid grid-cols-3 gap-2 text-right items-center">
                             {/* Kolom Nama */}
@@ -493,9 +492,15 @@
                             {/* Kolom Kelas & Semester */}
                             <div>
                                 <div class="flex items-center gap-1">
-                                    <span class="font-bold text-slate-700">الفصل / المستوى</span>
+                                    <span class="font-bold text-slate-700">الفصل</span>
+                                    <span class="text-slate-400">/</span>
+                                    <span class="font-bold text-slate-700">المستوى</span>
                                     <span class="font-bold text-slate-700">:</span>
-                                    <span class="font-semibold text-slate-900">{schoolConfig.className} / {schoolConfig.semester}</span>
+                                    <span class="font-semibold text-slate-900 flex items-center gap-1">
+                                        <span>{schoolConfig.className}</span>
+                                        <span class="text-slate-400">/</span>
+                                        <span>{schoolConfig.semester}</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -660,17 +665,33 @@
                                             {/* mt-8 print:mt-10 ditambahkan untuk memberi jarak renggang antara biodata dan tabel nilai */}
                                             <div class="flex flex-col flex-grow mt-8 print:mt-10">
                                                 <div class="arabic-header text-right font-bold text-slate-700 mb-1 border-r-4 border-slate-400 pr-1.5 flex justify-between items-center print:pr-1 print:mb-0.5">
-                                                    <span>المواد العامة / Pelajaran Umum</span>
+                                                    <div class="flex items-center gap-1" dir="rtl">
+                                                        <span>المواد العامة</span>
+                                                        <span class="text-slate-400 font-normal">/</span>
+                                                        <span class="font-sans text-xs font-normal text-slate-500">Pelajaran Umum</span>
+                                                    </div>
                                                     <span class="text-[9px] font-sans text-slate-400 print:text-[8px]">General Subjects</span>
                                                 </div>
                                                 <table class="w-full border-collapse border border-slate-300 text-right print:text-[10px]">
                                                     <thead>
                                                         <tr class="bg-slate-100 text-slate-800 font-bold arabic-header text-[11px] print:text-[9.5px]">
                                                             <th class="border border-slate-300 py-1 px-2 text-center w-10 print:py-[2px]">رقم</th>
-                                                            <th class="border border-slate-300 py-1 px-3 text-right print:py-[2px]">المواد الدراسية / Pelajaran</th>
+                                                            <th class="border border-slate-300 py-1 px-3 text-right print:py-[2px]">
+                                                                <div class="flex items-center justify-start gap-1" dir="rtl">
+                                                                    <span>المواد الدراسية</span>
+                                                                    <span class="text-slate-400 font-normal">/</span>
+                                                                    <span class="font-sans text-[9px] font-normal text-slate-500">Pelajaran</span>
+                                                                </div>
+                                                            </th>
                                                             <th class="border border-slate-300 py-1 px-2 text-center w-20 print:py-[2px]">النتيجة</th>
                                                             <th class="border border-slate-300 py-1 px-2 text-center w-16 print:py-[2px]">التقدير</th>
-                                                            <th class="border border-slate-300 py-1 px-3 text-right w-1/3 print:py-[2px]">الكتابة / Terbilang</th>
+                                                            <th class="border border-slate-300 py-1 px-3 text-right w-1/3 print:py-[2px]">
+                                                                <div class="flex items-center justify-start gap-1" dir="rtl">
+                                                                    <span>الكتابة</span>
+                                                                    <span class="text-slate-400 font-normal">/</span>
+                                                                    <span class="font-sans text-[9px] font-normal text-slate-500">Terbilang</span>
+                                                                </div>
+                                                            </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -680,7 +701,11 @@
                                                                 <tr key={sub.id} class="hover:bg-slate-50">
                                                                     <td class="border border-slate-300 py-[4px] px-2 text-center text-slate-500 font-sans print:py-[2px]">{formatNum(idx + 1)}</td>
                                                                     <td class="border border-slate-300 py-[4px] px-3 text-right arabic-text font-bold text-sm print:text-xs print:py-[2px]">
-                                                                        {sub.nameAr} <span class="inline-block mx-2 text-[9px] text-slate-400 font-sans font-normal print:text-[8px]">| {sub.nameId}</span>
+                                                                        <div class="flex items-center gap-1.5 justify-start" dir="rtl">
+                                                                            <span>{sub.nameAr}</span>
+                                                                            <span class="text-slate-300 font-normal">/</span>
+                                                                            <span class="font-sans text-[11px] font-normal text-slate-400">{sub.nameId}</span>
+                                                                        </div>
                                                                     </td>
                                                                     <td class="border border-slate-300 py-[4px] px-2 text-center font-bold font-sans text-sm print:text-xs print:py-[2px]">{formatNum(score)}</td>
                                                                     <td class="border border-slate-300 py-[4px] px-2 text-center font-bold font-sans text-sm print:text-xs print:py-[2px]">{score}</td>
@@ -709,17 +734,33 @@
                                                 {/* Kolom Kanan: Ujian Tulis */}
                                                 <div class="flex flex-col">
                                                     <div class="arabic-header text-right font-bold text-slate-700 mb-1 border-r-4 border-slate-400 pr-1.5 flex justify-between items-center print:pr-1 print:mb-0.5">
-                                                        <span>التعبير التحريري / Ujian Tulis </span>
+                                                        <div class="flex items-center gap-1" dir="rtl">
+                                                            <span>التعبير التحريري</span>
+                                                            <span class="text-slate-400 font-normal">/</span>
+                                                            <span class="font-sans text-xs font-normal text-slate-500">Ujian Tulis</span>
+                                                        </div>
                                                         <span class="text-[9px] font-sans text-slate-400 print:text-[8px]">Written Exam</span>
                                                     </div>
                                                     <table class="w-full border-collapse border border-slate-300 text-right print:text-[9.5px]">
                                                         <thead>
                                                             <tr class="bg-slate-100 text-slate-800 font-bold arabic-header text-[10px] print:text-[9px]">
                                                                 <th class="border border-slate-300 py-1 px-1.5 text-center w-8 print:py-0.5">رقم</th>
-                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">المواد الدراسية / Pelajaran</th>
+                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">
+                                                                    <div class="flex items-center justify-start gap-1" dir="rtl">
+                                                                        <span>المواد الدراسية</span>
+                                                                        <span class="text-slate-400 font-normal">/</span>
+                                                                        <span class="font-sans text-[9px] font-normal text-slate-500">Pelajaran</span>
+                                                                    </div>
+                                                                </th>
                                                                 <th class="border border-slate-300 py-1 px-1 text-center w-12 print:py-0.5">النتيجة</th>
                                                                 <th class="border border-slate-300 py-1 px-1 text-center w-10 print:py-0.5">التقدير</th>
-                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">الكتابة / Terbilang</th>
+                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">
+                                                                    <div class="flex items-center justify-start gap-1" dir="rtl">
+                                                                        <span>الكتابة</span>
+                                                                        <span class="text-slate-400 font-normal">/</span>
+                                                                        <span class="font-sans text-[9px] font-normal text-slate-500">Terbilang</span>
+                                                                    </div>
+                                                                </th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -728,8 +769,12 @@
                                                                 return (
                                                                     <tr key={sub.id} class="hover:bg-slate-50">
                                                                         <td class="border border-slate-300 py-[3px] px-1 text-center text-slate-500 font-sans print:py-[1.5px]">{formatNum(idx + 1)}</td>
-                                                                        <td class="border border-slate-300 py-[3px] px-2 text-right arabic-text font-semibold print:py-[1.5px]">
-                                                                            {sub.nameAr} <span class="block text-[8px] text-slate-400 font-sans mt-0.5">{sub.nameId}</span>
+                                                                        <td class="border border-slate-300 py-[3px] px-2 text-right print:py-[1.5px]">
+                                                                            <div class="flex items-center gap-1 justify-start" dir="rtl">
+                                                                                <span class="arabic-text font-semibold">{sub.nameAr}</span>
+                                                                                <span class="text-slate-300 font-normal">/</span>
+                                                                                <span class="font-sans text-[9px] font-normal text-slate-400">{sub.nameId}</span>
+                                                                            </div>
                                                                         </td>
                                                                         <td class="border border-slate-300 py-[3px] px-1 text-center font-normal font-sans print:py-[1.5px]">{formatNum(score)}</td>
                                                                         <td class="border border-slate-300 py-[3px] px-1 text-center font-normal font-sans print:py-[1.5px]">{score}</td>
@@ -741,20 +786,36 @@
                                                     </table>
                                                 </div>
 
-                                                {/* Kolom Kiri:     Ujian Lisan    */}
+                                                {/* Kolom Kiri: Ujian Lisan */}
                                                 <div class="flex flex-col">
                                                     <div class="arabic-header text-right font-bold text-slate-700 mb-1 border-r-4 border-slate-400 pr-1.5 flex justify-between items-center print:pr-1 print:mb-0.5">
-                                                        <span>التعبير الشفهي</span>
+                                                        <div class="flex items-center gap-1" dir="rtl">
+                                                            <span>التعبير الشفهي</span>
+                                                            <span class="text-slate-400 font-normal">/</span>
+                                                            <span class="font-sans text-xs font-normal text-slate-500">Ujian Lisan</span>
+                                                        </div>
                                                         <span class="text-[9px] font-sans text-slate-400 print:text-[8px]">Oral Exam</span>
                                                     </div>
                                                     <table class="w-full border-collapse border border-slate-300 text-right print:text-[9.5px]">
                                                         <thead>
                                                             <tr class="bg-slate-100 text-slate-800 font-bold arabic-header text-[10px] print:text-[9px]">
                                                                 <th class="border border-slate-300 py-1 px-1.5 text-center w-8 print:py-0.5">رقم</th>
-                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">المواد الدراسية / Pelajaran</th>
+                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">
+                                                                    <div class="flex items-center justify-start gap-1" dir="rtl">
+                                                                        <span>المواد الدراسية</span>
+                                                                        <span class="text-slate-400 font-normal">/</span>
+                                                                        <span class="font-sans text-[9px] font-normal text-slate-500">Pelajaran</span>
+                                                                    </div>
+                                                                </th>
                                                                 <th class="border border-slate-300 py-1 px-1 text-center w-12 print:py-0.5">النتيجة</th>
                                                                 <th class="border border-slate-300 py-1 px-1 text-center w-10 print:py-0.5">التقدير</th>
-                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">الكتابة / Terbilang</th>
+                                                                <th class="border border-slate-300 py-1 px-2 text-right print:py-0.5">
+                                                                    <div class="flex items-center justify-start gap-1" dir="rtl">
+                                                                        <span>الكتابة</span>
+                                                                        <span class="text-slate-400 font-normal">/</span>
+                                                                        <span class="font-sans text-[9px] font-normal text-slate-500">Terbilang</span>
+                                                                    </div>
+                                                                </th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -763,8 +824,12 @@
                                                                 return (
                                                                     <tr key={sub.id} class="hover:bg-slate-50">
                                                                         <td class="border border-slate-300 py-[3px] px-1 text-center text-slate-500 font-sans print:py-[1.5px]">{formatNum(idx + 1)}</td>
-                                                                        <td class="border border-slate-300 py-[3px] px-2 text-right arabic-text font-semibold print:py-[1.5px]">
-                                                                            {sub.nameAr} <span class="block text-[8px] text-slate-400 font-sans mt-0.5">{sub.nameId}</span>
+                                                                        <td class="border border-slate-300 py-[3px] px-2 text-right print:py-[1.5px]">
+                                                                            <div class="flex items-center gap-1 justify-start" dir="rtl">
+                                                                                <span class="arabic-text font-semibold">{sub.nameAr}</span>
+                                                                                <span class="text-slate-300 font-normal">/</span>
+                                                                                <span class="font-sans text-[9px] font-normal text-slate-400">{sub.nameId}</span>
+                                                                            </div>
                                                                         </td>
                                                                         <td class="border border-slate-300 py-[3px] px-1 text-center font-normal font-sans print:py-[1.5px]">{formatNum(score)}</td>
                                                                         <td class="border border-slate-300 py-[3px] px-1 text-center font-normal font-sans print:py-[1.5px]">{score}</td>
@@ -782,21 +847,45 @@
                                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-[11px] print:text-[9.5px] print:gap-2 mb-3 print:mb-1.5 items-start" dir="rtl">
                                                 {/* Absensi */}
                                                 <div class="flex flex-col">
-                                                    <div class="arabic-header font-bold text-slate-700 mb-1 border-r-4 border-slate-400 pr-1.5 print:mb-0.5">أيام الغياب / Absensi</div>
+                                                    <div class="arabic-header font-bold text-slate-700 mb-1 border-r-4 border-slate-400 pr-1.5 print:mb-0.5">
+                                                        <div class="flex items-center gap-1" dir="rtl">
+                                                            <span>أيام الغياب</span>
+                                                            <span class="text-slate-400 font-normal">/</span>
+                                                            <span class="font-sans text-xs font-normal text-slate-500">Absensi</span>
+                                                        </div>
+                                                    </div>
                                                     <table class="w-full border-collapse border border-slate-300 text-right">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">المرض / Sakit</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">
+                                                                    <div class="flex items-center gap-1 justify-start" dir="rtl">
+                                                                        <span>المرض</span>
+                                                                        <span class="text-slate-300 font-normal">/</span>
+                                                                        <span class="font-sans text-[10px] font-normal text-slate-400">Sakit</span>
+                                                                    </div>
+                                                                </td>
                                                                 <td class="border border-slate-300 py-1 text-center text-slate-800 w-16 font-sans print:py-[2px]">{formatNum(currentStudent.attendance.sakit)}</td>
                                                                 <td class="border border-slate-300 py-1 text-center w-12 arabic-text print:py-[2px]">يوما</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">الاستئذان / Izin</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">
+                                                                    <div class="flex items-center gap-1 justify-start" dir="rtl">
+                                                                        <span>الاستئذان</span>
+                                                                        <span class="text-slate-300 font-normal">/</span>
+                                                                        <span class="font-sans text-[10px] font-normal text-slate-400">Izin</span>
+                                                                    </div>
+                                                                </td>
                                                                 <td class="border border-slate-300 py-1 text-center text-slate-800 w-16 font-sans print:py-[2px]">{formatNum(currentStudent.attendance.izin)}</td>
                                                                 <td class="border border-slate-300 py-1 text-center w-12 arabic-text print:py-[2px]">يوما</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">الغياب / Alpa</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">
+                                                                    <div class="flex items-center gap-1 justify-start" dir="rtl">
+                                                                        <span>الغياب</span>
+                                                                        <span class="text-slate-300 font-normal">/</span>
+                                                                        <span class="font-sans text-[10px] font-normal text-slate-400">Alpa</span>
+                                                                    </div>
+                                                                </td>
                                                                 <td class="border border-slate-300 py-1 text-center text-slate-800 w-16 font-sans print:py-[2px]">{formatNum(currentStudent.attendance.alpa)}</td>
                                                                 <td class="border border-slate-300 py-1 text-center w-12 arabic-text print:py-[2px]">يوما</td>
                                                             </tr>
@@ -806,19 +895,43 @@
 
                                                 {/* Kepribadian */}
                                                 <div class="flex flex-col">
-                                                    <div class="arabic-header font-bold text-slate-700 mb-1 border-r-4 border-slate-400 pr-1.5 print:mb-0.5">الشخصية / Kepribadian</div>
+                                                    <div class="arabic-header font-bold text-slate-700 mb-1 border-r-4 border-slate-400 pr-1.5 print:mb-0.5">
+                                                        <div class="flex items-center gap-1" dir="rtl">
+                                                            <span>الشخصية</span>
+                                                            <span class="text-slate-400 font-normal">/</span>
+                                                            <span class="font-sans text-xs font-normal text-slate-500">Kepribadian</span>
+                                                        </div>
+                                                    </div>
                                                     <table class="w-full border-collapse border border-slate-300 text-right">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">السلوك / Karakter & Akhlaq</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">
+                                                                    <div class="flex items-center gap-1 justify-start" dir="rtl">
+                                                                        <span>السلوك</span>
+                                                                        <span class="text-slate-300 font-normal">/</span>
+                                                                        <span class="font-sans text-[10px] font-normal text-slate-400">Karakter & Akhlaq</span>
+                                                                    </div>
+                                                                </td>
                                                                 <td class="border border-slate-300 py-1 text-center font-bold text-slate-800 arabic-text print:py-[2px]">{currentStudent.behavior.suluk}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">النظافة / Kebersihan</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">
+                                                                    <div class="flex items-center gap-1 justify-start" dir="rtl">
+                                                                        <span>النظافة</span>
+                                                                        <span class="text-slate-300 font-normal">/</span>
+                                                                        <span class="font-sans text-[10px] font-normal text-slate-400">Kebersihan</span>
+                                                                    </div>
+                                                                </td>
                                                                 <td class="border border-slate-300 py-1 text-center font-bold text-slate-800 arabic-text print:py-[2px]">{currentStudent.behavior.nazhafah}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">المواظبة / Kedisiplinan</td>
+                                                                <td class="border border-slate-300 py-1 px-2 font-medium print:py-[2px]">
+                                                                    <div class="flex items-center gap-1 justify-start" dir="rtl">
+                                                                        <span>المواظبة</span>
+                                                                        <span class="text-slate-300 font-normal">/</span>
+                                                                        <span class="font-sans text-[10px] font-normal text-slate-400">Kedisiplinan</span>
+                                                                    </div>
+                                                                </td>
                                                                 <td class="border border-slate-300 py-1 text-center font-bold text-slate-800 arabic-text print:py-[2px]">{currentStudent.behavior.muraqabah}</td>
                                                             </tr>
                                                         </tbody>
@@ -827,19 +940,37 @@
 
                                                 {/* Nilai Akademik */}
                                                 <div class="flex flex-col">
-                                                    <div class="arabic-header font-bold text-slate-700 mb-1 border-r-4 border-slate-400 pr-1.5 print:mb-0.5">نتائج القيمة / Nilai Akademik</div>
+                                                    <div class="arabic-header font-bold text-slate-700 mb-1 border-r-4 border-slate-400 pr-1.5 print:mb-0.5">
+                                                        <div class="flex items-center gap-1" dir="rtl">
+                                                            <span>نتائج القيمة</span>
+                                                            <span class="text-slate-400 font-normal">/</span>
+                                                            <span class="font-sans text-xs font-normal text-slate-500">Nilai Akademik</span>
+                                                        </div>
+                                                    </div>
                                                     {(() => {
                                                         const stats = calculateStats(currentStudent);
                                                         return (
                                                             <table class="w-full border-collapse border border-slate-300 text-right">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td class="border border-slate-300 py-1.5 px-2 font-bold text-slate-700 bg-slate-50 print:py-[3px]">مجموع الدرجات / Total Nilai</td>
-                                                                        <td class="border border-slate-300 py-1.5 text-center font-bold text-slate-900 font-sans bg-slate-50 text-sm print:text-xs print:py-[3px]">{formatNum(stats.total)}</td>
+                                                                        <td class="border border-slate-300 py-1.5 px-2 font-bold text-slate-700 bg-slate-50 print:py-[3px]">
+                                                                            <div class="flex items-center gap-1 justify-start" dir="rtl">
+                                                                                <span>مجموع الدرجات</span>
+                                                                                <span class="text-slate-400 font-normal">/</span>
+                                                                                <span class="font-sans text-[10px] font-normal text-slate-500">Total Nilai</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="border border-slate-300 p-2 text-center font-bold text-slate-900 font-sans bg-slate-50 text-sm print:text-xs print:py-[3px]">{formatNum(stats.total)}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="border border-slate-300 py-1.5 px-2 font-bold text-slate-700 bg-slate-50 print:py-[3px]">المعدل / Rata-rata</td>
-                                                                        <td class="border border-slate-300 py-1.5 text-center font-bold text-slate-900 font-sans bg-slate-50 text-sm print:text-xs print:py-[3px]">{formatNum(stats.average)}</td>
+                                                                        <td class="border border-slate-300 py-1.5 px-2 font-bold text-slate-700 bg-slate-50 print:py-[3px]">
+                                                                            <div class="flex items-center gap-1 justify-start" dir="rtl">
+                                                                                <span>المعدل</span>
+                                                                                <span class="text-slate-400 font-normal">/</span>
+                                                                                <span class="font-sans text-[10px] font-normal text-slate-500">Rata-rata</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="border border-slate-300 p-2 text-center font-bold text-slate-900 font-sans bg-slate-50 text-sm print:text-xs print:py-[3px]">{formatNum(stats.average)}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -850,15 +981,23 @@
 
                                             {/* Signatures - mt-auto Dihapus agar tidak ada space kosong terlalu lebar, diganti margin statis */}
                                             <div class="mt-8 print:mt-10 border-t border-slate-300 pt-4 print:pt-5 mb-1 print:mb-0" dir="rtl">
-                                                {/* Pembungkus Tanggal Rilis dengan Flexbox agar posisi titik dua aman */}
+                                                {/* Pembungkus Tanggal Rilis dengan Flexbox agar posisi titik dua dan garis miring aman */}
                                                 <div class="text-slate-600 italic mb-4 arabic-text print:text-[9px] print:mb-3 flex justify-start items-center gap-1" dir="rtl">
                                                     <span>تحريرا في</span>
                                                     <span>:</span>
-                                                    <span>{schoolConfig.placeDateGreg} / {schoolConfig.placeDateHijr}</span>
+                                                    <span class="flex items-center gap-1">
+                                                        <span>{schoolConfig.placeDateGreg}</span>
+                                                        <span class="text-slate-400">/</span>
+                                                        <span>{schoolConfig.placeDateHijr}</span>
+                                                    </span>
                                                 </div>
                                                 <div class="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-800 leading-tight print:text-[9.5px]">
                                                     <div>
-                                                        <div class="arabic-header font-bold text-slate-800 text-xs print:text-[10px]">رئيس المدرسة العالية / Kepala SMA</div>
+                                                        <div class="arabic-header font-bold text-slate-800 text-xs print:text-[10px] flex justify-center items-center gap-1" dir="rtl">
+                                                            <span>رئيس المدرسة العالية</span>
+                                                            <span class="text-slate-400 font-normal">/</span>
+                                                            <span class="font-sans text-[10px] font-normal text-slate-500">Kepala SMA</span>
+                                                        </div>
                                                         <div class="text-[9px] text-slate-400 uppercase tracking-wider print:text-[8px]">Headmaster</div>
                                                         {/* Space Tanda Tangan Diperbesar Menjadi ~2cm */}
                                                         <div class="h-16 print:h-20 w-full"></div>
@@ -866,7 +1005,11 @@
                                                         <div class="text-[10px] text-slate-500 mt-1 print:text-[8px]">{schoolConfig.headmasterNip}</div>
                                                     </div>
                                                     <div>
-                                                        <div class="arabic-header font-bold text-slate-800 text-xs print:text-[10px]">ولي الفصل / Wali Kelas</div>
+                                                        <div class="arabic-header font-bold text-slate-800 text-xs print:text-[10px] flex justify-center items-center gap-1" dir="rtl">
+                                                            <span>ولي الفصل</span>
+                                                            <span class="text-slate-400 font-normal">/</span>
+                                                            <span class="font-sans text-[10px] font-normal text-slate-500">Wali Kelas</span>
+                                                        </div>
                                                         <div class="text-[9px] text-slate-400 uppercase tracking-wider print:text-[8px]">Homeroom Teacher</div>
                                                         {/* Space Tanda Tangan Diperbesar Menjadi ~2cm */}
                                                         <div class="h-16 print:h-20 w-full"></div>
@@ -874,7 +1017,11 @@
                                                         <div class="text-[10px] text-slate-500 mt-1 print:text-[8px]">{schoolConfig.homeroomTeacherNip}</div>
                                                     </div>
                                                     <div>
-                                                        <div class="arabic-header font-bold text-slate-800 text-xs print:text-[10px]">ولي الأمر / Orang Tua</div>
+                                                        <div class="arabic-header font-bold text-slate-800 text-xs print:text-[10px] flex justify-center items-center gap-1" dir="rtl">
+                                                            <span>ولي الأمر</span>
+                                                            <span class="text-slate-400 font-normal">/</span>
+                                                            <span class="font-sans text-[10px] font-normal text-slate-500">Orang Tua</span>
+                                                        </div>
                                                         <div class="text-[9px] text-slate-400 uppercase tracking-wider print:text-[8px]">Wali Santri</div>
                                                         {/* Space Tanda Tangan Diperbesar Menjadi ~2cm */}
                                                         <div class="h-16 print:h-20 w-full"></div>
