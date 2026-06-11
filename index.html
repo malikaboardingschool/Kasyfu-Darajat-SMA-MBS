@@ -161,11 +161,11 @@
         const { useState } = React;
 
         const SUBJECTS_LISAN = [
-            { id: "quran", nameAr: "القرآن الكريم", nameId: "Al-Qur'an" },
-            { id: "b_arab_lisan", nameAr: "اللغة العربية", nameId: "Bahasa Arab" },
-            { id: "b_ingg_lisan", nameAr: "اللغة الإنجليزية", nameId: "Bahasa Inggris" },
+            { id: "quran", nameAr: "القرآن الكريم", nameId: "Al-Qur'an Karim" },
+            { id: "b_arab_lisan", nameAr: "اللغة العربية (شفهي)", nameId: "Bahasa Arab" },
+            { id: "b_ingg_lisan", nameAr: "اللغة الإنجليزية (شفهي)", nameId: "Bahasa Inggris" },
             { id: "qiraatul_kutub", nameAr: "قراءة الكتب", nameId: "Qira'atul Kutub" },
-            { id: "ubudiyah", nameAr: "العبودية", nameId: "Praktik Ibadah" },
+            { id: "ubudiyah", nameAr: "العبودية", nameId: "Al-Ubudiyah" },
             { id: "khitabah", nameAr: "الخطابة", nameId: "Public Speaking" }
         ];
 
@@ -276,13 +276,13 @@
         function App() {
             const [schoolConfig, setSchoolConfig] = useState({
                 mahadName: "معهد التربية الإسلامية ماليك",
-                className: "العاشر الألف", 
-                semester: "الثاني",
+                className: "العاشر الألف (10-A)", 
+                semester: "الثاني / Genap",
                 academicYear: "٢٠٢٥ - ٢٠٢٦ مـ",
                 homeroomTeacher: "كياهي الحاج أحمد بيهقي",
-                homeroomTeacherNip: "",
+                homeroomTeacherNip: "Wali Kelas X-A",
                 headmaster: "الأستاذ الحاج شهراني",
-                headmasterNip: "",
+                headmasterNip: "Kepala SMA MBS",
                 placeDateGreg: "تنجرانج، ١٩ يونيو ٢٠٢٦ مـ",
                 placeDateHijr: "٤ محرم ١٤٤٨ هـ",
                 useEasternArabicDigits: true
@@ -538,8 +538,8 @@
                                     <img src="https://iili.io/FsLlXA7.png" alt="Logo" class="h-10 w-10 object-contain rounded-full bg-white"/>
                                 </div>
                                 <div>
-                                    <h1 class="font-bold text-base leading-tight">Rapor Pesantren Digital SMA MBS</h1>
-                                    <p class="text-xs text-blue-100">World Class System</p>
+                                    <h1 class="font-bold text-base leading-tight">Sistem Rapor SMA MBS</h1>
+                                    <p class="text-xs text-blue-100">Kasyf Darajat 2-Halaman Layout Presisi</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
@@ -1015,7 +1015,7 @@
                                                             <span class="text-slate-400 font-normal">/</span>
                                                             <span class="font-sans text-[10px] font-normal text-slate-500">Kepala SMA</span>
                                                         </div>
-                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider print:text-[8px]"></div>
+                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider print:text-[8px]">Headmaster</div>
                                                         {/* Space Tanda Tangan Diperbesar Menjadi ~2cm */}
                                                         <div class="h-16 print:h-20 w-full"></div>
                                                         <div class="font-bold border-b border-slate-800 w-44 mx-auto pb-1 text-emerald-950 print:pb-0.5 trad-arabic text-sm text-slate-900">{schoolConfig.headmaster}</div>
@@ -1027,7 +1027,7 @@
                                                             <span class="text-slate-400 font-normal">/</span>
                                                             <span class="font-sans text-[10px] font-normal text-slate-500">Wali Kelas</span>
                                                         </div>
-                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider print:text-[8px]"></div>
+                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider print:text-[8px]">Homeroom Teacher</div>
                                                         {/* Space Tanda Tangan Diperbesar Menjadi ~2cm */}
                                                         <div class="h-16 print:h-20 w-full"></div>
                                                         <div class="font-bold border-b border-slate-800 w-44 mx-auto pb-1 text-emerald-950 print:pb-0.5 trad-arabic text-sm text-slate-900">{schoolConfig.homeroomTeacher}</div>
@@ -1037,12 +1037,12 @@
                                                         <div class="arabic-header font-bold text-slate-800 text-xs print:text-[10px] flex justify-center items-center gap-1" dir="rtl">
                                                             <span class="trad-arabic font-bold text-sm text-slate-800">ولي الأمر</span>
                                                             <span class="text-slate-400 font-normal">/</span>
-                                                            <span class="font-sans text-[10px] font-normal text-slate-500">Wali Santri</span>
+                                                            <span class="font-sans text-[10px] font-normal text-slate-500">Orang Tua</span>
                                                         </div>
-                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider print:text-[8px]"></div>
+                                                        <div class="text-[9px] text-slate-400 uppercase tracking-wider print:text-[8px]">Wali Santri</div>
                                                         {/* Space Tanda Tangan Diperbesar Menjadi ~2cm */}
                                                         <div class="h-16 print:h-20 w-full"></div>
-                                                        <div class="font-bold border-b border-dashed border-slate-400 w-36 mx-auto pb-1 print:pb-0.5"></div>
+                                                        <div class="font-bold border-b border-dashed border-slate-400 w-36 mx-auto pb-1 print:pb-0.5">........................................</div>
                                                     </div>
                                                 </div>
                                             </div>
