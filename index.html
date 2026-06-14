@@ -36,11 +36,11 @@
             line-height: 1.2;
         }
         
-        /* Strict A4 Setup for Screen & Print - Margin Kiri/Kanan dikurangi dari 15mm menjadi 8mm agar bingkai lebih menepi */
+        /* Strict A4 Setup for Screen & Print */
         .a4-page {
             width: 210mm;
             height: 297mm; /* Strictly 1 page per container */
-            padding: 12mm 8mm;
+            padding: 15mm 15mm; /* Margin dikembalikan ke ukuran proporsional karena bingkai sudah dihapus */
             background: white;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             position: relative;
@@ -49,18 +49,16 @@
             flex-shrink: 0;
         }
         
+        /* FIXED: Bingkai ganda (border & outline) dihapus seluruhnya agar lebih bersih dan lega */
         .rapor-border {
-            border: 4px double #475569;
-            outline: 1px solid #475569;
-            outline-offset: -8px;
-            padding: 24px;
+            padding: 8px 12px;
             height: 100%;
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
         }
 
-        /* Mode Khusus PDF Generator - Disamakan 8mm agar bingkai luar menepi sempurna */
+        /* Mode Khusus PDF Generator */
         body.rendering-pdf {
             overflow: visible !important;
             height: auto !important;
@@ -74,21 +72,21 @@
         }
         .pdf-mode .a4-page {
             width: 210mm !important;
-            height: 296.5mm !important; /* Mencegah kebocoran sub-pixel pada halaman kosong */
+            height: 296.5mm !important; 
             box-shadow: none !important;
             margin: 0 !important;
-            padding: 10mm 8mm !important;
+            padding: 12mm 15mm !important;
             page-break-after: always !important;
             page-break-inside: avoid !important;
             border-radius: 0 !important;
             transform: none !important;
         }
         .pdf-mode .rapor-border {
-            height: 276.5mm !important;
-            padding: 15px 22px !important;
+            height: 100% !important;
+            padding: 0 !important;
         }
 
-        /* 100% Perfect Print Layout - Sisi kiri/kanan diset 8mm agar lebih menepi ke kertas fisik A4 */
+        /* 100% Perfect Print Layout */
         @media print {
             @page {
                 size: A4 portrait;
@@ -117,7 +115,7 @@
                 width: 210mm !important;
                 height: 297mm !important;
                 margin: 0 !important;
-                padding: 10mm 8mm !important;
+                padding: 12mm 15mm !important;
                 box-shadow: none !important;
                 page-break-after: always !important;
                 page-break-inside: avoid !important;
@@ -126,8 +124,8 @@
                 page-break-after: auto !important;
             }
             .rapor-border {
-                height: 277mm !important; /* 297mm - 20mm total external padding */
-                padding: 15px 22px !important;
+                height: 100% !important;
+                padding: 0 !important;
             }
         }
 
@@ -244,14 +242,14 @@
             if (num === 0) return "صفر";
             
             const ones = ["", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة"];
-            const tens = ["", "عشرة", "عشرون", "ثلاثون", "أربعون", "خمسon", "ستون", "سبعون", "ثمانون", "تسعون"];
+            const tens = ["", "عشرة", "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"];
             
             if (num < 10) return ones[num];
             if (num === 10) return "عشرة";
             if (num < 20) {
                 const o = num % 10;
                 if (o === 1) return "أحد عشر";
-                if (o === 2) return "اثna عشر";
+                if (o === 2) return "اثنا عشر";
                 return ones[o] + " عشر";
             }
             
@@ -707,14 +705,18 @@
                                                             return (
                                                                 <tr key={sub.id} class="hover:bg-slate-50">
                                                                     <td class="border border-slate-300 py-[4px] px-2 text-center text-slate-500 font-sans print:py-[2px]">{formatNum(idx + 1)}</td>
+                                                                    {/* Nama Pelajaran dalam bahasa arab TIDAK BOLD (menggunakan font-normal) */}
                                                                     <td class="border border-slate-300 py-[4px] px-3 text-right arabic-text font-normal text-sm print:text-xs print:py-[2px]">
                                                                         <div class="flex items-center gap-2 justify-start" dir="rtl">
                                                                             <span>{sub.nameAr}</span>
                                                                             <span class="font-sans text-[11px] font-normal text-slate-400">{sub.nameId}</span>
                                                                         </div>
                                                                     </td>
+                                                                    {/* Nilai Arab diperkecil & TIDAK BOLD (font-normal, text-xs) */}
                                                                     <td class="border border-slate-300 py-[4px] px-2 text-center font-normal font-sans text-xs print:text-[10px] print:py-[2px]">{formatNum(score)}</td>
+                                                                    {/* Nilai Latin diperkecil & TIDAK BOLD (font-normal, text-xs) */}
                                                                     <td class="border border-slate-300 py-[4px] px-2 text-center font-normal font-sans text-xs print:text-[10px] print:py-[2px]">{score}</td>
+                                                                    {/* Deskripsi Terbilang Arab TIDAK BOLD (font-normal) */}
                                                                     <td class="border border-slate-300 py-[4px] px-3 text-right arabic-text text-sm font-normal text-slate-900 print:text-[11px] print:py-[2px]">{numberToArabicWords(score)}</td>
                                                                 </tr>
                                                             );
@@ -723,7 +725,7 @@
                                                 </table>
                                                 
                                                 {/* Label Halaman */}
-                                                <div class="mt-auto text-center border border-dashed border-slate-300 rounded-lg p-4 bg-slate-50/50 mt-8">
+                                                <div class="mt-auto text-center border-dashed border-slate-300 rounded-lg p-4 bg-slate-50/50 mt-8">
                                                     <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Halaman 1 / 2</span>
                                                 </div>
                                             </div>
@@ -735,7 +737,7 @@
                                         <div class="rapor-border flex flex-col">
                                             <HeaderKop />
 
-                                            <div class="grid grid-cols-2 gap-5 text-[11px] print:text-[10px] mb-3 print:mb-2 mt-4 print:mt-3" dir="rtl">
+                                            <div class="grid grid-cols-2 gap-5 text-[11px] print:text-[10px] mb-1.5 print:mb-0.5 mt-4 print:mt-3" dir="rtl">
                                                 
                                                 {/* Kolom Kanan: Ujian Tulis */}
                                                 <div class="flex flex-col">
@@ -983,15 +985,19 @@
                                                 </div>
                                             </div>
 
-                                            {/* Kotak Kenaikan Kelas diletakkan di luar grid 3 kolom agar membentang penuh setara lebar ketiga kolom tersebut */}
-                                            <div class="border border-slate-400 rounded-lg p-2.5 bg-slate-50/70 mb-3 print:mb-2 w-full flex flex-col justify-start">
-                                                <div class="flex items-center gap-2 justify-start text-slate-800" dir="rtl">
-                                                    <span class="trad-arabic font-normal text-slate-700" style={{ fontSize: '1.05rem' }}>منقول</span>
+                                            {/* Kotak Kenaikan Kelas - Diletakkan penuh (w-full) di bawah grid 3 kolom */}
+                                            <div class="border border-slate-400 rounded-lg p-2.5 bg-slate-50/70 w-full flex flex-col justify-start">
+                                                {/* Teks Arab: dipaksa LTR untuk perlindungan slash di PDF, isi direverse manual */}
+                                                <div class="flex items-center gap-2 justify-end text-slate-800 w-full" dir="ltr">
+                                                    <span class="trad-arabic font-normal text-slate-700" style={{ fontSize: '1.05rem' }} dir="rtl">غير منقول إلى : الفصل الحادي عشر</span>
                                                     <span class="text-slate-400 font-normal">/</span>
-                                                    <span class="trad-arabic font-normal text-slate-700" style={{ fontSize: '1.05rem' }}>غير منقول إلى : الفصل الحادي عشر</span>
+                                                    <span class="trad-arabic font-normal text-slate-700" style={{ fontSize: '1.05rem' }} dir="rtl">منقول</span>
                                                 </div>
-                                                <div class="flex items-center gap-1.5 justify-start text-[9px] print:text-[7.5px] text-slate-500 font-sans font-normal mt-0.5" dir="rtl">
-                                                    <span>Naik / Tidak Naik Ke Kelas XI</span>
+                                                {/* Teks Latin: flex dari kiri ke kanan (LTR) */}
+                                                <div class="flex items-center justify-start gap-1.5 text-[9px] print:text-[7.5px] text-slate-500 font-sans font-normal mt-0.5 w-full" dir="ltr">
+                                                    <span>Naik</span>
+                                                    <span>/</span>
+                                                    <span>Tidak Naik Ke Kelas XI</span>
                                                 </div>
                                             </div>
 
@@ -1014,7 +1020,6 @@
                                                             <span class="font-sans text-[10px] font-normal text-slate-500">Kepala SMA</span>
                                                         </div>
                                                         <div class="h-12 print:h-12 w-full"></div>
-                                                        {/* Diperkecil menjadi 1rem dan whitespace-nowrap agar tidak turun baris memanjang ke bawah */}
                                                         <div class="font-normal border-b border-slate-800 w-48 mx-auto pb-1 text-emerald-950 print:pb-0.5 trad-arabic text-slate-900 whitespace-nowrap" style={{ fontSize: '1rem' }}>{schoolConfig.headmaster}</div>
                                                         <div class="text-[10px] text-slate-500 mt-1 print:text-[8px]">{schoolConfig.headmasterNip}</div>
                                                     </div>
@@ -1025,7 +1030,6 @@
                                                             <span class="font-sans text-[10px] font-normal text-slate-500">Wali Kelas</span>
                                                         </div>
                                                         <div class="h-12 print:h-12 w-full"></div>
-                                                        {/* Diperkecil menjadi 1rem dan whitespace-nowrap agar tidak turun baris memanjang ke bawah */}
                                                         <div class="font-normal border-b border-slate-800 w-48 mx-auto pb-1 text-emerald-950 print:pb-0.5 trad-arabic text-slate-900 whitespace-nowrap" style={{ fontSize: '1rem' }}>{schoolConfig.homeroomTeacher}</div>
                                                         <div class="text-[10px] text-slate-500 mt-1 print:text-[8px]">{schoolConfig.homeroomTeacherNip}</div>
                                                     </div>
